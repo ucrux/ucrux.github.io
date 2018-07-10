@@ -1,5 +1,5 @@
 ---
-author: asmbits
+author: ucrux
 comments: true
 date: 2018-04-25 21:18:00 +0000
 layout: post
@@ -33,9 +33,9 @@ dmidecode
 
 ## IMPORTANT NOTES:
  - Congratulations! Your certificate and chain have been saved at:
-   /etc/letsencrypt/live/asmbits.com/fullchain.pem
+   /etc/letsencrypt/live/ucrux.com/fullchain.pem
    Your key file has been saved at:
-   /etc/letsencrypt/live/asmbits.com/privkey.pem
+   /etc/letsencrypt/live/ucrux.com/privkey.pem
    Your cert will expire on 2018-03-02. To obtain a new or tweaked
    version of this certificate in the future, simply run certbot-auto
    again. To non-interactively renew *all* of your certificates, run
@@ -54,7 +54,7 @@ mv certbot-auto /usr/local/bin/
 # 此处要注意 python2.6 和 python2.7
 # 签发证书
 # 如果使用 --standalone 签发证书,那么每次更新证书必须保证 443 端口不被占用
-certbot-auto certonly --standalone -d asmbits.com -d www.asmbits.com -d jmp.asmbits.com -d log.asmbits.com
+certbot-auto certonly --standalone -d ucrux.com -d www.ucrux.com -d jmp.ucrux.com -d log.ucrux.com
 
 # 自动更新
 ## 测试自动更新

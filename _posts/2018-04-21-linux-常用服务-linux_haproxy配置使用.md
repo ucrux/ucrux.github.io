@@ -1,5 +1,5 @@
 ---
-author: asmbits
+author: ucrux
 comments: true
 date: 2018-04-21 22:41:00 +0000
 layout: post
@@ -250,11 +250,11 @@ server www01 10.0.0.101:80 maxconn 2048 weight 8 check inter 3000 fall 2 rise 2
 
 #### 利用URL
 ```shell
-option httpchk HEAD /index.jsp HTTP/1.1\r\nHost:\ www.asmbits.com
-option httpchk GET /index.jsp HTTP/1.1\r\nHost:\ www.asmbits.com
+option httpchk HEAD /index.jsp HTTP/1.1\r\nHost:\ www.ucrux.com
+option httpchk GET /index.jsp HTTP/1.1\r\nHost:\ www.ucrux.com
 ```
 > 使用域名检查的话, RS的hosts文件要指定解析地址才有意义<br>
-> 10.0.0.101 www.asmbits.com<br>
+> 10.0.0.101 www.ucrux.com<br>
 
 
 ### 其他服务的健康检查
@@ -343,20 +343,20 @@ defaults
     stats   auth    admin:one
 
 #删除listen,并添加如下
-frontend asmbitsone
+frontend ucruxone
     bind 192.168.122.103:80
     acl one_dom hdr(host) -i www.one.com  #one_dom规则名,hdr(host)函数表示去地址里的域名,-i不区分大小写
-    acl bbs_dom hdr(host) -i bbs.asmbits.com 
-    acl www_dom hdr(host) -i www.asmbits.com 
-    acl tmp_dom hdr(host) -i tmp.asmbits.com 
+    acl bbs_dom hdr(host) -i bbs.ucrux.com 
+    acl www_dom hdr(host) -i www.ucrux.com 
+    acl tmp_dom hdr(host) -i tmp.ucrux.com 
 
     redirect prefix http://www.baidu.com code 301 if one_dom    #如果符合one_dom的规则就以301的形式跳转
-    use_backend bbsasmbits if bbs_dom                           #如果符合bbs_dom的规则就找bbsasmbits这个backend
-    use_backend wwwasmbits if www_dom
-    default_backend wwwasmbits                                  #缺省backend,例如tmp_dom就会走这条规则
+    use_backend bbsucrux if bbs_dom                           #如果符合bbs_dom的规则就找bbsucrux这个backend
+    use_backend wwwucrux if www_dom
+    default_backend wwwucrux                                  #缺省backend,例如tmp_dom就会走这条规则
     
 
-backend wwwasmbits
+backend wwwucrux
     balance leastconn                   #最小连接数负载算法
     option httpclose
     option forwardfor
@@ -364,7 +364,7 @@ backend wwwasmbits
     server www01 192.168.122.101:8001 maxconn 10240 weight 50 check inter 3000 fall 3
     server www01 192.168.122.102:8001 maxconn 10240 weight 50 check inter 3000 fall 3
 
-backend bbsasmbits
+backend bbsucrux
     balance leastconn                   #最小连接数负载算法
     option httpclose
     option forwardfor
@@ -385,21 +385,21 @@ backend bbsasmbits
 
 ### 根据目录进行过滤转发
 ```
-acl asmbits_static  path_beg    /static/
-acl asmbits_php     path_beg    /php/
-acl asmbits_java    path_beg    /resin/
+acl ucrux_static  path_beg    /static/
+acl ucrux_php     path_beg    /php/
+acl ucrux_java    path_beg    /resin/
 
-use_backend static_pool if  asmbits_static
-use_backend php_pool    if  asmbits_php
-use_backend java_pool   if  asmbits_java
+use_backend static_pool if  ucrux_static
+use_backend php_pool    if  ucrux_php
+use_backend java_pool   if  ucrux_java
 ```
 
 ### 基于扩展名的跳转
 ```
-acl asmbits_static  path_end    .gif .png .jpg .css .js
-acl asmbits_pic     url_reg     \.(css|js|html|png|css?.*|js?.*)$  #使用正则表达式
+acl ucrux_static  path_end    .gif .png .jpg .css .js
+acl ucrux_pic     url_reg     \.(css|js|html|png|css?.*|js?.*)$  #使用正则表达式
 
-use_backend static_pool if  asmbits_static or asmbits_pic
+use_backend static_pool if  ucrux_static or ucrux_pic
 ```
 
 ### 基于user_agent的7层跳转
@@ -409,11 +409,11 @@ use_backend static_pool if  asmbits_static or asmbits_pic
 
 ```
 acl iphone_users    hdr_sub(user-agent) -i iphone 
-redirect    prefix  http://3g-iphone.asmbits.com    if  iphone_users
+redirect    prefix  http://3g-iphone.ucrux.com    if  iphone_users
 
 
 acl android_users   hdr_sub(user-agent) -i android 
-redirect    prefix  http://3g-android.asmbits.com   if  android_users
+redirect    prefix  http://3g-android.ucrux.com   if  android_users
 ```
 ### 基于IP和端口控制过滤
 ```

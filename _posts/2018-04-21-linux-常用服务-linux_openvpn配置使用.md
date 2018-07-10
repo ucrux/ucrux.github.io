@@ -1,5 +1,5 @@
 ---
-author: asmbits
+author: ucrux
 comments: true
 date: 2018-04-21 22:47:00 +0000
 layout: post
@@ -74,12 +74,12 @@ vi +64 vars
 export KEY_COUNTRY="CN"
 export KEY_PROVINCE="Guangdong"
 export KEY_CITY="Shenzhen"
-export KEY_ORG="ASMBITS"
-export KEY_EMAIL="one@asmbits.com"
-export KEY_EMAIL=one@asmbits.com
-export KEY_CN=asmbits
-export KEY_NAME=asmbits
-export KEY_OU=asmbits
+export KEY_ORG="ucrux"
+export KEY_EMAIL="one@ucrux.com"
+export KEY_EMAIL=one@ucrux.com
+export KEY_CN=ucrux
+export KEY_NAME=ucrux
+export KEY_OU=ucrux
 export PKCS11_MODULE_PATH=changeme
 export PKCS11_PIN=1234
 
@@ -98,14 +98,14 @@ total 12
 
 ### 生成服务端的密钥文件
 ```
-./build-key-server AsmbitsSrv
+./build-key-server ucruxSrv
 
 ll keys/
 total 40
 ...
--rw-r--r-- 1 root root 4037 Feb  5 18:32 AsmbitsSrv.crt
--rw-r--r-- 1 root root  716 Feb  5 18:32 AsmbitsSrv.csr
--rw------- 1 root root  916 Feb  5 18:32 AsmbitsSrv.key
+-rw-r--r-- 1 root root 4037 Feb  5 18:32 ucruxSrv.crt
+-rw-r--r-- 1 root root  716 Feb  5 18:32 ucruxSrv.csr
+-rw------- 1 root root  916 Feb  5 18:32 ucruxSrv.key
 ...
 ```
 
@@ -144,8 +144,8 @@ total 84
 | ca.crt         | server + all clients | root CA certificate | NO     |
 | ca.key         | signing machine only | root CA key         | YES    |
 | dh{n}.pem      | server only          | diffie hellman para | NO     |
-| AsmbitsSrv.crt | server only          | server certificate  | NO     |
-| AsmbitsSrv.key | server only          | server key          | YES    |
+| ucruxSrv.crt | server only          | server certificate  | NO     |
+| ucruxSrv.key | server only          | server key          | YES    |
 | client{n}.crt  | client only          | client certificate  | NO     |
 | client{n}.key  | clinet only          | client key          | YES    |
 
@@ -197,8 +197,8 @@ verb 3
 | porto udp                           | 监听协议,推荐tcp                     |
 | dev tun                             | 路由模式,tap或者tun                  |
 | ca ca.crt                           | ca证书,最好用绝对路径                |
-| cert AsmbitsSrv.crt                 |                                      |
-| key AsmbitsSrv.key                  |                                      |
+| cert ucruxSrv.crt                 |                                      |
+| key ucruxSrv.key                  |                                      |
 | dh dh1024.pem                       |                                      |
 | server 10.8.0.0 255.255.255.0       | 分配给client的地址池                 |
 | ifconfig-pool-persist ipp.txt       |                                      |
@@ -223,8 +223,8 @@ proto tcp
 dev tun
 
 ca /etc/openvpn/keys/ca.crt
-cert /etc/openvpn/keys/AsmbitsSrv.crt
-key /etc/openvpn/keys/AsmbitsSrv.key
+cert /etc/openvpn/keys/ucruxSrv.crt
+key /etc/openvpn/keys/ucruxSrv.key
 dh /etc/openvpn/keys/dh1024.pem
 tls-auth /etc/openvpn/keys/ta.key 0
 
@@ -268,7 +268,7 @@ verb 3
 client
 dev tun
 proto tcp
-remote asmbits.com 52115
+remote ucrux.com 52115
 resolv-retry infinite
 nobind
 persist-key
@@ -414,7 +414,7 @@ vi /etc/openvpn/client.conf
 client
 dev tun
 proto tcp
-remote asmbits.com 52115
+remote ucrux.com 52115
 resolv-retry infinite
 nobind
 persist-key
@@ -555,7 +555,7 @@ chattr +i /etc/openvpn/psw-file
 client
 dev tun
 proto tcp
-remote asmbits.com 52115
+remote ucrux.com 52115
 resolv-retry infinite
 nobind
 persist-key

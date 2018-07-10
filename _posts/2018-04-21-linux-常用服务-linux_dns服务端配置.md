@@ -1,5 +1,5 @@
 ---
-author: asmbits
+author: ucrux
 comments: true
 date: 2018-04-21 22:23:00 +0000
 layout: post
@@ -158,11 +158,11 @@ DNS主从
 ===
 ## DNS正解
 ```shell
-dig www.asmbits.com @8.8.8.8
+dig www.ucrux.com @8.8.8.8
 
 ...
-www.asmbits.com.    3599    IN  CNAME   asmbits.com.
-asmbits.com.        3599    IN  A   118.89.52.139
+www.ucrux.com.    3599    IN  CNAME   ucrux.com.
+ucrux.com.        3599    IN  A   118.89.52.139
 ...
 
 
